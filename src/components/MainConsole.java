@@ -1,5 +1,6 @@
 package components;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,6 +15,10 @@ public class MainConsole {
         OutputCSVWriter outputCSVWriter = new OutputCSVWriter(folderPath,"testOutputCSV.csv");
         List<WifiPointsTimePlace> processedFile =  outputCSVWriter.sortAndMergeFiles();
         outputCSVWriter.ExportToCSV(processedFile);
+
+        ArrayList<WIFIWeight> userInput = new ArrayList<WIFIWeight>();
+
+        List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, userInput, 3);
 
         HashRouters<String,WIFISample> routersOfAllFiles = outputCSVWriter.getAllRoutersOfTheFiles();
 

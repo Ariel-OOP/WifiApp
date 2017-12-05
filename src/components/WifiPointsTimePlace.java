@@ -3,6 +3,9 @@ package components;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Moshe
+ */
 public class WifiPointsTimePlace {
 
 	List<WIFISample> WifiPoints;
@@ -62,4 +65,39 @@ public class WifiPointsTimePlace {
 		return "" + WifiPoints.size();
 	}
 
+	public WIFIWeight checkSimilarity(ArrayList<WIFIWeight> userInputMACs)
+	{
+		WIFIWeight result;
+		boolean foundThisMAC = false;
+		ArrayList<Integer> signalsLine = new ArrayList<Integer>();
+		ArrayList<Integer> signalsUser = new ArrayList<Integer>();
+		double 	lat = Double.parseDouble(this.Lat);
+		double	lon = Double.parseDouble(this.Lon);
+		double	alt = Double.parseDouble(this.Alt);
+		double weight = 0;
+
+		for (WIFIWeight sample : userInputMACs) {
+			signalsUser.add(sample.getWIFI_RSSI());
+		}
+
+		for(WIFIWeight userSample : userInputMACs) {
+			for (WIFISample sample : WifiPoints) {
+				if(userSample.getWIFI_MAC().equals(sample.getWIFI_MAC()))
+				{
+					foundThisMAC = true;
+					signalsLine.add(Integer.parseInt(sample.getWIFI_RSSI()));
+					break;
+				}
+			}
+			if(!foundThisMAC)
+				signalsLine.add(-120);
+			foundThisMAC = false;
+		}
+
+		weight = Algorithm2.calcWeight(signalsLine,signalsUser);
+
+		result = new WIFIWeight("",lat*weight,lon*weight,alt*weight,0,weight);
+
+		return result;
+	}
 }
