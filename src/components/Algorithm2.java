@@ -2,6 +2,7 @@ package components;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,6 +20,11 @@ public class Algorithm2 {
         WIFIWeight kSimilar[] = new WIFIWeight[k];
         WIFIWeight wifiWeightOfOneLine;
         ArrayList<WIFIWeight> kMostSimilar = new ArrayList<>();
+
+        for(int i = 0; i < kSimilar.length; i++)
+            kSimilar[i] = new WIFIWeight("",0,0,0,0,0);
+
+        //kSimilar = Arrays.stream(kSimilar).map((x) -> x = new WIFIWeight("",0,0,0,0,0));
 
         for (WifiPointsTimePlace line : FinalCSV)
         {
@@ -64,7 +70,7 @@ public class Algorithm2 {
 
     public static double calcWeight(ArrayList<Integer> signalsLine, ArrayList<Integer> signalsUser)
     {
-        double weight = 0;
+        double weight = 1;
 
         int singleDiff = 0;
 

@@ -10,13 +10,21 @@ import java.util.Scanner;
 public class MainConsole {
 
     public static void main(String[] args) {
-        String folderPath="FileResources";
+        String folderPath="E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\FileResources";
 
         OutputCSVWriter outputCSVWriter = new OutputCSVWriter(folderPath,"testOutputCSV.csv");
         List<WifiPointsTimePlace> processedFile =  outputCSVWriter.sortAndMergeFiles();
         outputCSVWriter.ExportToCSV(processedFile);
 
         ArrayList<WIFIWeight> userInput = new ArrayList<WIFIWeight>();
+
+        WIFIWeight a = new WIFIWeight("3c:1e:04:03:7f:17",0,0,0,-30,0);
+        WIFIWeight b = new WIFIWeight("74:da:38:50:77:f2",0,0,0,-49,0);
+        WIFIWeight d = new WIFIWeight("c4:3d:c7:5a:79:1c",0,0,0,-90,0);
+
+        userInput.add(a);
+        userInput.add(b);
+        userInput.add(d);
 
         List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, userInput, 3);
 
