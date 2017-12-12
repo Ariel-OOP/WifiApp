@@ -10,6 +10,8 @@ import java.util.Scanner;
  */
 public class MainConsole {
 
+    static List<WifiPointsTimePlace> processedFile = new ArrayList<>();
+    static HashRouters<String,WIFISample> routersOfAllFiles = new HashRouters<>();
 
     public static void main(String[] args) {
         List<File> selectedFiles = new ArrayList<>();
@@ -22,9 +24,9 @@ public class MainConsole {
 
         //selectedFiles.add(new File(folderPath));
 
-        OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles,"testOutputCSV.csv");
-        List<WifiPointsTimePlace> processedFile = outputCSVWriter.sortAndMergeFiles();
-        outputCSVWriter.ExportToCSV(processedFile);
+        OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles);
+        processedFile.addAll(outputCSVWriter.sortAndMergeFiles());
+        OutputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
 
         ArrayList<WIFIWeight> userInput = new ArrayList<WIFIWeight>();
 
@@ -38,7 +40,7 @@ public class MainConsole {
 
         List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, userInput, 3);
 
-        HashRouters<String,WIFISample> routersOfAllFiles = outputCSVWriter.getAllRoutersOfTheFiles();
+        routersOfAllFiles.mergeToHash(outputCSVWriter.getAllRoutersOfTheFiles());
 
 
        // WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);

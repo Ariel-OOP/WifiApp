@@ -23,27 +23,25 @@ public class OutputCSVWriter {
 	List<File> files;
 	File dir;
 
-
-	String outputPath;
+	//String outputPath;
 
 	HashRouters<String,WIFISample> allRoutersOfTheFiles;
 
 	/**
 	 * 
 	 * @param files the file destination to output the file and name
-	 * @param outputPath the output path
 	 */
 
-	public OutputCSVWriter(List<File> files,String outputPath) {
+	public OutputCSVWriter(List<File> files) {
 		this.files = files;
-		this.outputPath = outputPath;
+		//this.outputPath = outputPath;
 
 
 		allRoutersOfTheFiles = new HashRouters<>();
 
-		//Deletes file if it exists
-		File fileToDelete = new File(outputPath+".csv");
-		fileToDelete.delete();
+//		//Deletes file if it exists
+//		File fileToDelete = new File(outputPath+".csv");
+//		fileToDelete.delete();
 
 	}
 	public List<WifiPointsTimePlace> sortAndMergeFiles() {
@@ -64,7 +62,11 @@ public class OutputCSVWriter {
 		return processedFile;
 	}
 
-	public void ExportToCSV(List<WifiPointsTimePlace> fileAfterSortintAndMerging) {
+	public static void ExportToCSV(List<WifiPointsTimePlace> fileAfterSortintAndMerging,String outputPath) {
+
+		//Deletes file if it exists
+		File fileToDelete = new File(outputPath+".csv");
+		fileToDelete.delete();
 
 		FileWriter fileWriter = null;
 
