@@ -30,7 +30,7 @@ public class Algorithm2 {
         {
             wifiWeightOfOneLine = line.checkSimilarity(inputFromUser);
 
-            //Trye to insert the new wifiWeightOfOneLine into the array of k most similar. //enterToArrayOfKSimilar(kSimilar,wifiWeightOfOneLine);
+            //Try to insert the new wifiWeightOfOneLine into the array of k most similar. //enterToArrayOfKSimilar(kSimilar,wifiWeightOfOneLine);
             WIFIWeight cotterntWifiWight = wifiWeightOfOneLine;
             WIFIWeight temp;
 
