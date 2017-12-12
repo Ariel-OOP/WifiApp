@@ -32,7 +32,7 @@ public class KmlExporter {
      * @param filter is the filter object from the Filter class that generated the filter according to its user input.
      * @return true is export was successful.
      */
-    public boolean csvToKml(Filter filter) {
+    public boolean csvToKml(Filter... filter) {
         kml = new Kml();
         document = kml.createAndSetDocument();
 
@@ -79,9 +79,15 @@ public class KmlExporter {
             while ((line = br.readLine()) != null) {
                 // use comma as separator
                 lineInformation = line.split(",");//Split each line to parts of properties
-                if (filter.checkLineByFilter(lineInformation)) {
-                    printPointOnMap(lineInformation);
+                boolean isAllConditionsTrue=true;
+                for (Filter fil : filter){
+                    if (!fil.checkLineByFilter(lineInformation)) {
+                        isAllConditionsTrue=false;
+                    }
                 }
+                if (isAllConditionsTrue)
+                    printPointOnMap(lineInformation);
+
             }
         } catch (IOException e) {
             e.printStackTrace();

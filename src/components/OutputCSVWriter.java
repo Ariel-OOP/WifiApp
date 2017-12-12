@@ -20,8 +20,9 @@ public class OutputCSVWriter {
 			"SSID5","MAC5","Frequncy5","Signal5","SSID6","MAC6","Frequncy6","Signal6","SSID7","MAC7","Frequncy7","Signal7",
 			"SSID8","MAC8","Frequncy8","Signal8","SSID9","MAC9","Frequncy9","Signal9","SSID10","MAC10","Frequncy10","Signal10"};
 
-	String files;
+	List<File> files;
 	File dir;
+
 
 	String outputPath;
 
@@ -33,10 +34,10 @@ public class OutputCSVWriter {
 	 * @param outputPath the output path
 	 */
 
-	public OutputCSVWriter(String files,String outputPath) {
+	public OutputCSVWriter(List<File> files,String outputPath) {
 		this.files = files;
 		this.outputPath = outputPath;
-		dir = new File(files);		//	The current file
+
 
 		allRoutersOfTheFiles = new HashRouters<>();
 
@@ -50,15 +51,8 @@ public class OutputCSVWriter {
 		List<WifiPointsTimePlace> processedFile = new ArrayList<>();
 		WigleFileReader wigleFileReader;
 
-		for (File file : dir.listFiles()) {	
+		for (File file : files) {
 
-			//Incorrect file type-reject
-			if (!(file.getName().toLowerCase().endsWith(".csv"))){
-				System.out.println(file.getName()+" is an incorrect file type in the folder");
-				System.out.println("the file was not added to the csv file error 404");
-				continue;
-			}
-			else {
 				wigleFileReader = new WigleFileReader(file.getPath());
 				wigleFileReader.readCsvFile();
 
@@ -66,7 +60,7 @@ public class OutputCSVWriter {
 
 				//allSortedPoints = wigleFileReader.getWigleList();
 				processedFile.addAll(wigleFileReader.getWigleList());
-			}
+
 		}
 		return processedFile;
 	}
