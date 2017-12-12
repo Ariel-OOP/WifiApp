@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Created by Nissan on 11/21/2017.
@@ -16,7 +17,8 @@ public class MainConsole {
     public static void main(String[] args) {
         List<File> selectedFiles = new ArrayList<>();
 
-        String folderPath="FileResources";
+        //String folderPath="FileResources";
+        String folderPath="E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\FileResources";
         File Dir = new File(new File(folderPath).toString());
         for(File oneFile : Dir.listFiles()){
             selectedFiles.add(oneFile);
@@ -26,7 +28,7 @@ public class MainConsole {
 
         OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles);
         processedFile.addAll(outputCSVWriter.sortAndMergeFiles());
-        OutputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
+        OutputCSVWriter.ExportToCSV(processedFile,"E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\testOutputCSV.csv");
 
         ArrayList<WIFIWeight> userInput = new ArrayList<WIFIWeight>();
 
@@ -42,10 +44,17 @@ public class MainConsole {
 
         routersOfAllFiles.mergeToHash(outputCSVWriter.getAllRoutersOfTheFiles());
 
+        Set<String> keysAddHash = routersOfAllFiles.getRoutersHashTable().keySet();
+        List<WIFIWeight> MACs_after_algorith_1 = new ArrayList<>();
+
+        for(String key : keysAddHash )
+        {
+            WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
+            MACs_after_algorith_1.add(weightedArithmeticMean.getWAMbyMac(key));
+        }
 
        // WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
        // WIFIWeight ww =weightedArithmeticMean.getWAM("00:22:b0:75:7d:eb");
-
 
         Scanner stdin = new Scanner(System.in);
         char c = printMenu();
@@ -55,7 +64,7 @@ public class MainConsole {
             LineFilters.printInput(inputChoice);
         }while (!filter.setFilter(stdin.nextLine()));
 
-        KmlExporter kmlExporter = new KmlExporter("testOutputCSV.csv","resources\\helloKML1.kml");
+        KmlExporter kmlExporter = new KmlExporter("E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\testOutputCSV.csv","E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\resources\\helloKML1.kml");
         if(kmlExporter.csvToKml(filter) )
             System.out.println("successful export");
         else
