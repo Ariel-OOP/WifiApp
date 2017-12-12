@@ -60,7 +60,6 @@ public class OutputCSVWriter {
 
 				//allSortedPoints = wigleFileReader.getWigleList();
 				processedFile.addAll(wigleFileReader.getWigleList());
-
 		}
 		return processedFile;
 	}
@@ -85,10 +84,8 @@ public class OutputCSVWriter {
 			//Create CSV file header
 			csvFilePrinter.printRecord(FILE_HEADER);
 
-			//for (List<WifiPointsTimePlace> file : fileAfterSortintAndMerging) {
 				for(WifiPointsTimePlace line : fileAfterSortintAndMerging)
 					csvFilePrinter.printRecord(line.getWifiPoints());
-			//}
 
 			System.out.println("CSV file was created successfully !!!");
 
