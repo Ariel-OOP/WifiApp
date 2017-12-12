@@ -16,7 +16,7 @@ public class MainConsole {
     public static void main(String[] args) {
         List<File> selectedFiles = new ArrayList<>();
 
-        String folderPath="E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\FileResources";
+        String folderPath="FileResources";
         File Dir = new File(new File(folderPath).toString());
         for(File oneFile : Dir.listFiles()){
             selectedFiles.add(oneFile);

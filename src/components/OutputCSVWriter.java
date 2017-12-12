@@ -62,7 +62,7 @@ public class OutputCSVWriter {
 		return processedFile;
 	}
 
-	public static void ExportToCSV(List<WifiPointsTimePlace> fileAfterSortintAndMerging,String outputPath) {
+	public static<T extends Object> void ExportToCSV(List<T> fileAfterSortintAndMerging,String outputPath) {
 
 		//Deletes file if it exists
 		File fileToDelete = new File(outputPath+".csv");
@@ -86,9 +86,13 @@ public class OutputCSVWriter {
 			//Create CSV file header
 			csvFilePrinter.printRecord(FILE_HEADER);
 
-				for(WifiPointsTimePlace line : fileAfterSortintAndMerging)
-					csvFilePrinter.printRecord(line.getWifiPoints());
-
+			for (T line : fileAfterSortintAndMerging) {
+				if (line instanceof WifiPointsTimePlace) {
+					csvFilePrinter.printRecord(((WifiPointsTimePlace)line).getWifiPoints());
+				}else if(line instanceof WIFIWeight){
+					csvFilePrinter.printRecord(((WIFIWeight)line).propertiesOfWifiWeight());
+				}
+			}
 			System.out.println("CSV file was created successfully !!!");
 
 		} catch (Exception e) {

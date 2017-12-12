@@ -129,12 +129,14 @@ public class Controller implements Initializable{
         }
 
 
-        OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles,"testOutputCSV.csv");
+        OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles);
 
         processedFile =  outputCSVWriter.sortAndMergeFiles();
-        outputCSVWriter.ExportToCSV(processedFile);
+//        processedFile.addAll(outputCSVWriter.sortAndMergeFiles());
+        outputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
 
         routersOfAllFiles = outputCSVWriter.getAllRoutersOfTheFiles();
+//        routersOfAllFiles.mergeToHash(outputCSVWriter.getAllRoutersOfTheFiles());
 
         bottomLabel.setStyle("-fx-text-fill: black;");
         bottomLabel.setText("successfully exported CSV file");
@@ -223,6 +225,10 @@ public class Controller implements Initializable{
             altLabel2.setText(String.valueOf(ww.getWIFI_Alt()).substring(0,7));
 
         }
+    }
+
+    public void exportMACAlgo2CSV(){
+//        OutputCSVWriter.ExportToCSV(,"macOutputCSV.csv");
     }
 }
 
