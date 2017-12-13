@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class Controller implements Initializable{
 
@@ -228,7 +229,19 @@ public class Controller implements Initializable{
     }
 
     public void exportMACAlgo2CSV(){
-//        OutputCSVWriter.ExportToCSV(,"macOutputCSV.csv");
+
+        Set<String> keysAddHash = routersOfAllFiles.getRoutersHashTable().keySet();
+        List<WIFIWeight> MACs_after_algorith_1 = new ArrayList<>();
+
+        for(String key : keysAddHash )
+        {
+            WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
+            MACs_after_algorith_1.add(weightedArithmeticMean.getWAMbyMac(key));
+        }
+        OutputCSVWriter.ExportToCSV(MACs_after_algorith_1,"macOutputCSV.csv");
+        System.out.println("successful mac export");
+        bottomLabel.setStyle("-fx-text-fill: #131dff;");
+        bottomLabel.setText("successful mac export");
     }
 }
 

@@ -17,8 +17,8 @@ public class MainConsole {
     public static void main(String[] args) {
         List<File> selectedFiles = new ArrayList<>();
 
-        //String folderPath="FileResources";
-        String folderPath="E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\FileResources";
+        String folderPath="FileResources";
+//        String folderPath="E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\FileResources";
         File Dir = new File(new File(folderPath).toString());
         for(File oneFile : Dir.listFiles()){
             selectedFiles.add(oneFile);
@@ -28,7 +28,7 @@ public class MainConsole {
 
         OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles);
         processedFile.addAll(outputCSVWriter.sortAndMergeFiles());
-        OutputCSVWriter.ExportToCSV(processedFile,"E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\testOutputCSV.csv");
+        OutputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
 
         ArrayList<WIFIWeight> userInput = new ArrayList<WIFIWeight>();
 
@@ -64,7 +64,7 @@ public class MainConsole {
             LineFilters.printInput(inputChoice);
         }while (!filter.setFilter(stdin.nextLine()));
 
-        KmlExporter kmlExporter = new KmlExporter("E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\testOutputCSV.csv","E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\resources\\helloKML1.kml");
+        KmlExporter kmlExporter = new KmlExporter("testOutputCSV.csv","resources\\helloKML1.kml");
         if(kmlExporter.csvToKml(filter) )
             System.out.println("successful export");
         else

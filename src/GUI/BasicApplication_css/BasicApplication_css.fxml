@@ -142,7 +142,7 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b6b6b" height="58.0" layoutX="8.0" layoutY="83.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="201.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b6b6b" height="52.0" layoutX="8.0" layoutY="302.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="183.0" />
                   <Line endX="100.0" layoutX="105.0" layoutY="41.0" startX="-100.0" />
-                  <Button fx:id="exportMACAlgo2CSVButton" layoutX="35.0" layoutY="148.0" mnemonicParsing="false" text="Export MAC Algo 2 CSV" />
+                  <Button fx:id="exportMACAlgo2CSVButton" layoutX="35.0" layoutY="148.0" mnemonicParsing="false" onAction="#exportMACAlgo2CSV" text="Export MAC Algo 2 CSV" />
                </children></AnchorPane>
       </items>
     </SplitPane>
