@@ -17,8 +17,8 @@ public class MainConsole {
     public static void main(String[] args) {
         List<File> selectedFiles = new ArrayList<>();
 
-        String folderPath="FileResources";
-//        String folderPath="E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\FileResources";
+//        String folderPath="FileResources";
+        String folderPath="E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\FileResources";
         File Dir = new File(new File(folderPath).toString());
         for(File oneFile : Dir.listFiles()){
             selectedFiles.add(oneFile);
@@ -28,30 +28,48 @@ public class MainConsole {
 
         OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles);
         processedFile.addAll(outputCSVWriter.sortAndMergeFiles());
-        OutputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
-
-        ArrayList<WIFIWeight> userInput = new ArrayList<WIFIWeight>();
-
-        WIFIWeight a = new WIFIWeight("3c:1e:04:03:7f:17",0,0,0,-30,0);
-        WIFIWeight b = new WIFIWeight("74:da:38:50:77:f2",0,0,0,-49,0);
-        WIFIWeight d = new WIFIWeight("c4:3d:c7:5a:79:1c",0,0,0,-90,0);
-
-        userInput.add(a);
-        userInput.add(b);
-        userInput.add(d);
-
-        List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, userInput, 3);
-
         routersOfAllFiles.mergeToHash(outputCSVWriter.getAllRoutersOfTheFiles());
 
-        Set<String> keysAddHash = routersOfAllFiles.getRoutersHashTable().keySet();
-        List<WIFIWeight> MACs_after_algorith_1 = new ArrayList<>();
+//        OutputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
 
-        for(String key : keysAddHash )
-        {
+        //Algorithm 1
+//        ArrayList<WIFIWeight> userInput = new ArrayList<WIFIWeight>();
+//
+//        WIFIWeight a = new WIFIWeight("3c:1e:04:03:7f:17",0,0,0,-30,0);
+//        WIFIWeight b = new WIFIWeight("74:da:38:50:77:f2",0,0,0,-49,0);
+//        WIFIWeight d = new WIFIWeight("c4:3d:c7:5a:79:1c",0,0,0,-90,0);
+//
+//        userInput.add(a);
+//        userInput.add(b);
+//        userInput.add(d);
+//
+//        List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, userInput, 3);
+//
+//        routersOfAllFiles.mergeToHash(outputCSVWriter.getAllRoutersOfTheFiles());
+//
+//        Set<String> keysAddHash = routersOfAllFiles.getRoutersHashTable().keySet();
+//        List<WIFIWeight> MACs_after_algorith_1 = new ArrayList<>();
+//
+//        for(String key : keysAddHash )
+//        {
+//            WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
+//            MACs_after_algorith_1.add(weightedArithmeticMean.getWAMbyMac(key));
+//        }
+
+        //Algorithm 2
+
+        ArrayList<ArrayList<WIFIWeight>> listOfCombinationCsvLines = CSVReader.readCombinationCsvFile("E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\noGPSFolder\\_comb_no_gps_ts2_.csv");
+        for(ArrayList<WIFIWeight> line : listOfCombinationCsvLines) {
+            List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, line, listOfCombinationCsvLines.size());
             WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
-            MACs_after_algorith_1.add(weightedArithmeticMean.getWAMbyMac(key));
+            WIFIWeight ww = weightedArithmeticMean.getWamByList(kLineMostSimilar);
+
         }
+
+
+        OutputCSVWriter outputCSVWriterBenMosheFiles = new OutputCSVWriter(selectedFiles);
+        processedFile.addAll(outputCSVWriterBenMosheFiles.sortAndMergeFiles());
+
 
        // WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
        // WIFIWeight ww =weightedArithmeticMean.getWAM("00:22:b0:75:7d:eb");
