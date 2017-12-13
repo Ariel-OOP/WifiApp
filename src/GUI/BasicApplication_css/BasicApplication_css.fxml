@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="300.0" minWidth="300.0" prefHeight="400.0" prefWidth="640.0" stylesheets="@BasicApplication.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+<VBox minHeight="300.0" minWidth="300.0" prefHeight="441.0" prefWidth="640.0" stylesheets="@BasicApplication.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -125,23 +125,24 @@
                   <Label fx:id="latLabel1" layoutX="26.0" layoutY="114.0" text="0.0" />
                   <Label fx:id="lonLabel1" layoutX="87.0" layoutY="114.0" text="0.0" />
                   <Label fx:id="altLabel1" layoutX="150.0" layoutY="114.0" text="0.0" />
-                  <Line endX="100.0" fill="BLACK" layoutX="107.0" layoutY="153.0" startX="-100.0" stroke="#686868" />
-                  <TextField fx:id="macAlgo2input1" layoutX="12.0" layoutY="167.0" prefHeight="25.0" prefWidth="116.0" promptText="mac 1" />
-                  <TextField fx:id="macAlgo2input2" layoutX="12.0" layoutY="202.0" prefHeight="25.0" prefWidth="116.0" promptText="mac 2" />
-                  <TextField fx:id="macAlgo2input3" layoutX="12.0" layoutY="237.0" prefHeight="25.0" prefWidth="116.0" promptText="mac 3" />
-                  <TextField fx:id="sig1input" layoutX="141.0" layoutY="167.0" prefHeight="25.0" prefWidth="51.0" promptText="sig 1" />
-                  <TextField fx:id="sig2input" layoutX="140.0" layoutY="202.0" prefHeight="25.0" prefWidth="51.0" promptText="sig 2" />
-                  <TextField fx:id="sig3input" layoutX="140.0" layoutY="237.0" prefHeight="25.0" prefWidth="51.0" promptText="sig 3" />
-                  <Button fx:id="submitAlgo2button" layoutX="69.0" layoutY="335.0" mnemonicParsing="false" onAction="#submitAlgo2" prefHeight="25.0" prefWidth="63.0" text="Submit" />
-                  <Label layoutX="25.0" layoutY="280.0" text="Lat" />
-                  <Label layoutX="85.0" layoutY="279.0" text="Lon" />
-                  <Label layoutX="149.0" layoutY="279.0" text="Alt" />
-                  <Label fx:id="latLabel2" layoutX="25.0" layoutY="305.0" text="0.0" />
-                  <Label fx:id="lonLabel2" layoutX="86.0" layoutY="305.0" text="0.0" />
-                  <Label fx:id="altLabel2" layoutX="149.0" layoutY="305.0" text="0.0" />
+                  <Line endX="100.0" fill="BLACK" layoutX="106.0" layoutY="180.0" startX="-100.0" stroke="#686868" />
+                  <TextField fx:id="macAlgo2input1" layoutX="11.0" layoutY="194.0" prefHeight="25.0" prefWidth="116.0" promptText="mac 1" />
+                  <TextField fx:id="macAlgo2input2" layoutX="11.0" layoutY="229.0" prefHeight="25.0" prefWidth="116.0" promptText="mac 2" />
+                  <TextField fx:id="macAlgo2input3" layoutX="11.0" layoutY="264.0" prefHeight="25.0" prefWidth="116.0" promptText="mac 3" />
+                  <TextField fx:id="sig1input" layoutX="140.0" layoutY="194.0" prefHeight="25.0" prefWidth="51.0" promptText="sig 1" />
+                  <TextField fx:id="sig2input" layoutX="139.0" layoutY="229.0" prefHeight="25.0" prefWidth="51.0" promptText="sig 2" />
+                  <TextField fx:id="sig3input" layoutX="139.0" layoutY="264.0" prefHeight="25.0" prefWidth="51.0" promptText="sig 3" />
+                  <Button fx:id="submitAlgo2button" layoutX="68.0" layoutY="362.0" mnemonicParsing="false" onAction="#submitAlgo2" prefHeight="25.0" prefWidth="63.0" text="Submit" />
+                  <Label layoutX="24.0" layoutY="307.0" text="Lat" />
+                  <Label layoutX="84.0" layoutY="306.0" text="Lon" />
+                  <Label layoutX="148.0" layoutY="306.0" text="Alt" />
+                  <Label fx:id="latLabel2" layoutX="24.0" layoutY="332.0" text="0.0" />
+                  <Label fx:id="lonLabel2" layoutX="85.0" layoutY="332.0" text="0.0" />
+                  <Label fx:id="altLabel2" layoutX="148.0" layoutY="332.0" text="0.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b6b6b" height="58.0" layoutX="8.0" layoutY="83.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="201.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b6b6b" height="52.0" layoutX="9.0" layoutY="275.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="183.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b6b6b" height="52.0" layoutX="8.0" layoutY="302.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="183.0" />
                   <Line endX="100.0" layoutX="105.0" layoutY="41.0" startX="-100.0" />
+                  <Button fx:id="exportMACAlgo2CSVButton" layoutX="35.0" layoutY="148.0" mnemonicParsing="false" onAction="#exportMACAlgo2CSV" text="Export MAC Algo 2 CSV" />
                </children></AnchorPane>
       </items>
     </SplitPane>

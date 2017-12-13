@@ -23,27 +23,25 @@ public class OutputCSVWriter {
 	List<File> files;
 	File dir;
 
-
-	String outputPath;
+	//String outputPath;
 
 	HashRouters<String,WIFISample> allRoutersOfTheFiles;
 
 	/**
 	 * 
 	 * @param files the file destination to output the file and name
-	 * @param outputPath the output path
 	 */
 
-	public OutputCSVWriter(List<File> files,String outputPath) {
+	public OutputCSVWriter(List<File> files) {
 		this.files = files;
-		this.outputPath = outputPath;
+		//this.outputPath = outputPath;
 
 
 		allRoutersOfTheFiles = new HashRouters<>();
 
-		//Deletes file if it exists
-		File fileToDelete = new File(outputPath+".csv");
-		fileToDelete.delete();
+//		//Deletes file if it exists
+//		File fileToDelete = new File(outputPath+".csv");
+//		fileToDelete.delete();
 
 	}
 	public List<WifiPointsTimePlace> sortAndMergeFiles() {
@@ -60,12 +58,15 @@ public class OutputCSVWriter {
 
 				//allSortedPoints = wigleFileReader.getWigleList();
 				processedFile.addAll(wigleFileReader.getWigleList());
-
 		}
 		return processedFile;
 	}
 
-	public void ExportToCSV(List<WifiPointsTimePlace> fileAfterSortintAndMerging) {
+	public static<T extends Object> void ExportToCSV(List<T> fileAfterSortintAndMerging,String outputPath) {
+
+		//Deletes file if it exists
+		File fileToDelete = new File(outputPath+".csv");
+		fileToDelete.delete();
 
 		FileWriter fileWriter = null;
 
@@ -85,11 +86,13 @@ public class OutputCSVWriter {
 			//Create CSV file header
 			csvFilePrinter.printRecord(FILE_HEADER);
 
-			//for (List<WifiPointsTimePlace> file : fileAfterSortintAndMerging) {
-				for(WifiPointsTimePlace line : fileAfterSortintAndMerging)
-					csvFilePrinter.printRecord(line.getWifiPoints());
-			//}
-
+			for (T line : fileAfterSortintAndMerging) {
+				if (line instanceof WifiPointsTimePlace) {
+					csvFilePrinter.printRecord(((WifiPointsTimePlace)line).getWifiPoints());
+				}else if(line instanceof WIFIWeight){
+					csvFilePrinter.printRecord(((WIFIWeight)line).propertiesOfWifiWeight());
+				}
+			}
 			System.out.println("CSV file was created successfully !!!");
 
 		} catch (Exception e) {

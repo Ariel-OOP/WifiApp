@@ -1,5 +1,8 @@
 package components;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Nissan on 12/3/2017.
  */
@@ -67,5 +70,15 @@ public class WIFIWeight{
 
     public void setWIFI_Weight(double WIFI_Weight) {
         this.WIFI_Weight = WIFI_Weight;
+    }
+
+    public List<String> propertiesOfWifiWeight(){
+        List<String> line = new ArrayList();
+        line.add(WIFI_MAC);
+        line.add(WIFI_Lat+"");
+        line.add(WIFI_Lon+"");
+        line.add(WIFI_Alt+"");
+        line.add(WIFI_Weight+"");
+        return line;
     }
 }

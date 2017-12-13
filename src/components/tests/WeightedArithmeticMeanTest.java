@@ -23,9 +23,9 @@ public class WeightedArithmeticMeanTest {
         folderPath.add(new File("C:\\Users\\nissa\\Desktop\\Year 2\\OOP\\Programs\\NewWifiApp\\FileResources\\WigleWifi_20171027164529.csv"));
 
 
-        OutputCSVWriter outputCSVWriter = new OutputCSVWriter(folderPath,"testOutputCSV.csv");
+        OutputCSVWriter outputCSVWriter = new OutputCSVWriter(folderPath);
         List<WifiPointsTimePlace> processedFile =  outputCSVWriter.sortAndMergeFiles();
-        outputCSVWriter.ExportToCSV(processedFile);
+        outputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
 
         HashRouters<String, WIFISample> routersOfAllFiles = outputCSVWriter.getAllRoutersOfTheFiles();
 

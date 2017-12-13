@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class Controller implements Initializable{
 
@@ -129,12 +130,14 @@ public class Controller implements Initializable{
         }
 
 
-        OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles,"testOutputCSV.csv");
+        OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles);
 
         processedFile =  outputCSVWriter.sortAndMergeFiles();
-        outputCSVWriter.ExportToCSV(processedFile);
+//        processedFile.addAll(outputCSVWriter.sortAndMergeFiles());
+        outputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
 
         routersOfAllFiles = outputCSVWriter.getAllRoutersOfTheFiles();
+//        routersOfAllFiles.mergeToHash(outputCSVWriter.getAllRoutersOfTheFiles());
 
         bottomLabel.setStyle("-fx-text-fill: black;");
         bottomLabel.setText("successfully exported CSV file");
@@ -223,6 +226,22 @@ public class Controller implements Initializable{
             altLabel2.setText(String.valueOf(ww.getWIFI_Alt()).substring(0,7));
 
         }
+    }
+
+    public void exportMACAlgo2CSV(){
+
+        Set<String> keysAddHash = routersOfAllFiles.getRoutersHashTable().keySet();
+        List<WIFIWeight> MACs_after_algorith_1 = new ArrayList<>();
+
+        for(String key : keysAddHash )
+        {
+            WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
+            MACs_after_algorith_1.add(weightedArithmeticMean.getWAMbyMac(key));
+        }
+        OutputCSVWriter.ExportToCSV(MACs_after_algorith_1,"macOutputCSV.csv");
+        System.out.println("successful mac export");
+        bottomLabel.setStyle("-fx-text-fill: #131dff;");
+        bottomLabel.setText("successful mac export");
     }
 }
 
