@@ -18,6 +18,7 @@ public class MainConsole {
         List<File> selectedFiles = new ArrayList<>();
 
 //        String folderPath="FileResources";
+        //copy path of files in the folder to the list
         String folderPath="E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\FileResources";
         File Dir = new File(new File(folderPath).toString());
         for(File oneFile : Dir.listFiles()){
@@ -26,11 +27,14 @@ public class MainConsole {
 
         //selectedFiles.add(new File(folderPath));
 
+        //Read the files and create combination CSV file
         OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles);
+
+        //Add the new combination lines into the exist lines
         processedFile.addAll(outputCSVWriter.sortAndMergeFiles());
         routersOfAllFiles.mergeToHash(outputCSVWriter.getAllRoutersOfTheFiles());
 
-//        OutputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
+        OutputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
 
         //Algorithm 1
 //        ArrayList<WIFIWeight> userInput = new ArrayList<WIFIWeight>();
@@ -58,13 +62,21 @@ public class MainConsole {
 
         //Algorithm 2
 
+
+        ArrayList<WIFIWeight> listOfWIFIWeightsUsingAlgo2 = new ArrayList<>();//Hold locations of all lines of the combination without location CSV File
+
+        //Read the combination-without-location-CSV-File and inserts all line to the ArrayList<ArrayList<WIFIWeight>>.
+        //the innter ArrayList<WIFIWeight> hold one line of combination-without-location-CSV-File. and the external ArrayList hold all of lines.
         ArrayList<ArrayList<WIFIWeight>> listOfCombinationCsvLines = CSVReader.readCombinationCsvFile("E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\noGPSFolder\\_comb_no_gps_ts2_.csv");
         for(ArrayList<WIFIWeight> line : listOfCombinationCsvLines) {
-            List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, line, listOfCombinationCsvLines.size());
+            //run algorithm 2 on each line, get the WIFIWeight of each line and insert to ArrayList.
+            List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, line, 3);
             WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
             WIFIWeight ww = weightedArithmeticMean.getWamByList(kLineMostSimilar);
 
+            listOfWIFIWeightsUsingAlgo2.add(ww);
         }
+
 
 
         OutputCSVWriter outputCSVWriterBenMosheFiles = new OutputCSVWriter(selectedFiles);
@@ -82,7 +94,7 @@ public class MainConsole {
             LineFilters.printInput(inputChoice);
         }while (!filter.setFilter(stdin.nextLine()));
 
-        KmlExporter kmlExporter = new KmlExporter("testOutputCSV.csv","resources\\helloKML1.kml");
+        KmlExporter kmlExporter = new KmlExporter("testOutputCSV.csv","E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\resources\\helloKML1.kml");
         if(kmlExporter.csvToKml(filter) )
             System.out.println("successful export");
         else
