@@ -70,6 +70,7 @@
             <Label layoutX="19.0" layoutY="195.0" text="Data size:" />
             <Label layoutX="26.0" layoutY="223.0" text="# of AP:" />
             <Button fx:id="save2CSV" layoutX="28.0" layoutY="161.0" mnemonicParsing="false" onAction="#save2CSV" prefHeight="25.0" prefWidth="78.0" text="Save 2 CSV" />
+                  <Button fx:id="addComboCSVbutton" layoutX="16.0" layoutY="332.0" mnemonicParsing="false" onAction="#addComboCSV" text="Add Combo File" />
           </children>
         </AnchorPane>
         <AnchorPane prefHeight="358.0" prefWidth="274.0">

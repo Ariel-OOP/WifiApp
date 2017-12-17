@@ -8,6 +8,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+import javax.annotation.processing.FilerException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +37,7 @@ public class Controller implements Initializable{
     public TextField sig3input;
 
     public File selectedFolder;
+    public File comboFile;
     public File selectedFile;
     public List<File> selectedFiles;
     List<WifiPointsTimePlace> processedFile;
@@ -246,38 +248,42 @@ public class Controller implements Initializable{
     }
 
     public void addComboCSV(){
+        System.out.println("clicked combo button");
+        bottomLabel.setStyle("-fx-text-fill: black;");
+        bottomLabel.setText("choose file");
         FileChooser fileChooser = new FileChooser ();
-        fileChooser.setInitialDirectory(new File("C:\\"));
+        fileChooser.setInitialDirectory(new File("noGPSFolder"));
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("CSV files","*.csv") );
-        selectedFile = fileChooser.showOpenDialog(null);
+        comboFile = fileChooser.showOpenDialog(null);
 
-        if (selectedFile==null){ //null
+        if (comboFile==null){ //null
             System.out.println("didn't choose file");
             bottomLabel.setStyle("-fx-text-fill: red;");
             bottomLabel.setText("didn't choose file");
-        }else if (selectedFile != null && selectedFile.getName().toLowerCase().endsWith(".csv") ){
-            System.out.println(selectedFile.getAbsolutePath());
+        }else if (comboFile != null && comboFile.getName().toLowerCase().endsWith(".csv") ){
+            System.out.println(comboFile.getAbsolutePath());
             bottomLabel.setStyle("-fx-text-fill: black;");
-            bottomLabel.setText("choose file: " +selectedFile.getAbsolutePath());
-//            selectedFile.
-            selectedFiles.add(selectedFile);
+            bottomLabel.setText("choose file: " +comboFile.getAbsolutePath());
 
-        }else if(!selectedFile.getName().toLowerCase().endsWith(".csv")) {
-            selectedFile = null;
+        }else if(!comboFile.getName().toLowerCase().endsWith(".csv")) {
+            comboFile = null;
             System.out.println("incorrect file type");
             bottomLabel.setStyle("-fx-text-fill: red;");
             bottomLabel.setText("incorrect file type");
         }
+
     }
 
-    public void comboFiller(){
+    public void comboFiller() throws IOException {
         //Algorithm 2
+        if (comboFile==null)
+            throw new IOException();
 
         ArrayList<WIFIWeight> listOfWIFIWeightsUsingAlgo2 = new ArrayList<>();//Hold locations of all lines of the combination without location CSV File
 
         //Read the combination-without-location-CSV-File and inserts all line to the ArrayList<ArrayList<WIFIWeight>>.
         //the innter ArrayList<WIFIWeight> hold one line of combination-without-location-CSV-File. and the external ArrayList hold all of lines.
-        ArrayList<ArrayList<WIFIWeight>> listOfCombinationCsvLines = CSVReader.readCombinationCsvFile("noGPSFolder\\_comb_no_gps_ts2_.csv");
+        ArrayList<ArrayList<WIFIWeight>> listOfCombinationCsvLines = CSVReader.readCombinationCsvFile(comboFile.getAbsolutePath());
         for(ArrayList<WIFIWeight> line : listOfCombinationCsvLines) {
             //run algorithm 2 on each line, get the WIFIWeight of each line and insert to ArrayList.
             List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, line, 3);
@@ -289,7 +295,7 @@ public class Controller implements Initializable{
 
         //Getting all lines of combination-without-location-CSV-File and insert the new locations and export to new file
         try {
-            List<WifiPointsTimePlace> s =  CoboCSVReader.readCsvFile("noGPSFolder\\_comb_no_gps_ts2_.csv", routersOfAllFiles);
+            List<WifiPointsTimePlace> s =  CoboCSVReader.readCsvFile(comboFile.getAbsolutePath(), routersOfAllFiles);
             OutputCSVWriter.changeLocationOfFile(listOfWIFIWeightsUsingAlgo2,s, "afterAlgo2.csv");
         }
         catch (IOException e)
