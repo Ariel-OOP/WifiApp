@@ -13,8 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * @author moshe, nissan
-
+ * @author Moshe, Nissan
  */
 public class WigleFileReader {
 

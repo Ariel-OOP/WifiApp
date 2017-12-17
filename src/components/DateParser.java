@@ -19,13 +19,9 @@ public class DateParser {
     	System.out.println(correctDateFormat);
     }
     
-    
-    
     public static String getCorrectDateFormat() {
 		return correctDateFormat;
 	}
-
-
 
 	public static String setCorrectDateFormat(String correctDateFormat) {
 		DateParser.correctDateFormat = checkDateFormat(correctDateFormat);
@@ -33,9 +29,9 @@ public class DateParser {
 	}
 
 	/**
-	 *
-	 * @param date
-	 * @return
+	 * The function gets date and convert it to the correct format.
+	 * @param date - as String
+	 * @return date as String in correct format
 	 */
 	private static String checkDateFormat(String date) {
 
@@ -62,6 +58,11 @@ public class DateParser {
 		return newDate;
 	}
 
+	/**
+	 * The function get date and check if need to add a seconds or that has not any time and need to add time
+	 * @param string - date as String
+	 * @return date with time.
+	 */
 	private static String addSeconds(String string) {
 		
 		int count = StringUtils.countMatches(string, ":");
@@ -75,6 +76,12 @@ public class DateParser {
 		return string ;
 	}
 
+	/**
+	 * The function gets a format of date and date and check if the date is in the given format.
+	 * @param format - a format of date.
+	 * @param value - the date will check.
+	 * @return true if the date is in a format desired else the function returns false.
+	 */
 	private static boolean isValidFormat(String format, String value) {
         Date date = null;
 

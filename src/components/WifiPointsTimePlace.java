@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class WifiPointsTimePlace {
 
-	List<WIFISample> WifiPoints;
+	List<WIFISample> WifiPoints;//List of a WIFISample.
 
 	private String FirstSeen;
 	private String Device;
@@ -17,9 +17,22 @@ public class WifiPointsTimePlace {
 	private String Alt;
 
 	public WifiPointsTimePlace() {
-		WifiPoints = new ArrayList();;
+		WifiPoints = new ArrayList();
 	}
 
+	public WifiPointsTimePlace(String time, String device, String lat, String lon, String alt,List<WIFISample> wifiPoints) {
+		this.FirstSeen = time;
+		this.Device = device;
+		this.Lat = lat;
+		this.Lon = lon;
+		this.Alt = alt;
+		this.WifiPoints = wifiPoints;
+	}
+
+	/**
+	 * The function adds a WIFISample into the list.
+	 * @param point
+	 */
 	public void addPoint(WIFISample point)
 	{
 		FirstSeen = point.getWIFI_FirstSeen();
@@ -32,8 +45,8 @@ public class WifiPointsTimePlace {
 	}
 
 	/**
-	 * The method enters into a list the common parameters of these WIFI points (time, place, device)
-	 * and in addition the parameters of the points (MAC, SSID, Frequency, RSSI).
+	 * The function enters into a list the common parameters of the WIFI points that in a list (time, place, device)
+	 * 		and in addition the parameters that change for each point (MAC, SSID, Frequency, RSSI).
 	 * @return the List<String> that contain all parameters above.
 	 */
 	public List<String> getWifiPoints() {
@@ -56,8 +69,12 @@ public class WifiPointsTimePlace {
 		return line;
 	}
 
+	public List<WIFISample> getWifiPointsAsIs() {
+
+		return WifiPoints;
+	}
+
 	/**
-	 *
 	 * @return int number of points in this line
 	 */
 	public String toString()
@@ -65,6 +82,11 @@ public class WifiPointsTimePlace {
 		return "" + WifiPoints.size();
 	}
 
+	/**
+	 * The function gets ArrayList of points and calculate the similar (weight) between the input to the points that there are in this class.
+	 * @param userInputMACs - ArrayList of points that the function comperes to the points in this class. Type of ArrayList is WIFIWeight
+	 * @return a point that contain place the multiplied by the number of weight and the weight.
+	 */
 	public WIFIWeight checkSimilarity(ArrayList<WIFIWeight> userInputMACs)
 	{
 		WIFIWeight result;
@@ -99,5 +121,49 @@ public class WifiPointsTimePlace {
 		result = new WIFIWeight("",lat*weight,lon*weight,alt*weight,0,weight);
 
 		return result;
+	}
+
+	public void setWifiPoints(List<WIFISample> wifiPoints) {
+		WifiPoints = wifiPoints;
+	}
+
+	public String getFirstSeen() {
+		return FirstSeen;
+	}
+
+	public void setFirstSeen(String firstSeen) {
+		FirstSeen = firstSeen;
+	}
+
+	public String getDevice() {
+		return Device;
+	}
+
+	public void setDevice(String device) {
+		Device = device;
+	}
+
+	public String getLat() {
+		return Lat;
+	}
+
+	public void setLat(String lat) {
+		Lat = lat;
+	}
+
+	public String getLon() {
+		return Lon;
+	}
+
+	public void setLon(String lon) {
+		Lon = lon;
+	}
+
+	public String getAlt() {
+		return Alt;
+	}
+
+	public void setAlt(String alt) {
+		Alt = alt;
 	}
 }
