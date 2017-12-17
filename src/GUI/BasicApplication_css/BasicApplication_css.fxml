@@ -70,6 +70,7 @@
             <Label layoutX="19.0" layoutY="195.0" text="Data size:" />
             <Label layoutX="26.0" layoutY="223.0" text="# of AP:" />
             <Button fx:id="save2CSV" layoutX="28.0" layoutY="161.0" mnemonicParsing="false" onAction="#save2CSV" prefHeight="25.0" prefWidth="78.0" text="Save 2 CSV" />
+                  <Button fx:id="addComboCSVbutton" layoutX="16.0" layoutY="332.0" mnemonicParsing="false" onAction="#addComboCSV" text="Add Combo File" />
           </children>
         </AnchorPane>
         <AnchorPane prefHeight="358.0" prefWidth="274.0">
@@ -132,7 +133,7 @@
                   <TextField fx:id="sig1input" layoutX="140.0" layoutY="194.0" prefHeight="25.0" prefWidth="51.0" promptText="sig 1" />
                   <TextField fx:id="sig2input" layoutX="139.0" layoutY="229.0" prefHeight="25.0" prefWidth="51.0" promptText="sig 2" />
                   <TextField fx:id="sig3input" layoutX="139.0" layoutY="264.0" prefHeight="25.0" prefWidth="51.0" promptText="sig 3" />
-                  <Button fx:id="submitAlgo2button" layoutX="68.0" layoutY="362.0" mnemonicParsing="false" onAction="#submitAlgo2" prefHeight="25.0" prefWidth="63.0" text="Submit" />
+                  <Button fx:id="submitAlgo2button" layoutX="14.0" layoutY="362.0" mnemonicParsing="false" onAction="#submitAlgo2" prefHeight="25.0" prefWidth="63.0" text="Submit" />
                   <Label layoutX="24.0" layoutY="307.0" text="Lat" />
                   <Label layoutX="84.0" layoutY="306.0" text="Lon" />
                   <Label layoutX="148.0" layoutY="306.0" text="Alt" />
@@ -143,6 +144,7 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b6b6b" height="52.0" layoutX="8.0" layoutY="302.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="183.0" />
                   <Line endX="100.0" layoutX="105.0" layoutY="41.0" startX="-100.0" />
                   <Button fx:id="exportMACAlgo2CSVButton" layoutX="35.0" layoutY="148.0" mnemonicParsing="false" onAction="#exportMACAlgo2CSV" text="Export MAC Algo 2 CSV" />
+                  <Button fx:id="comboFiller" layoutX="104.0" layoutY="362.0" mnemonicParsing="false" onAction="#comboFiller" text="Combo Filler" />
                </children></AnchorPane>
       </items>
     </SplitPane>
