@@ -83,7 +83,6 @@ public class Algorithm2 {
     public static double calcWeight(ArrayList<Integer> signalsLine, ArrayList<Integer> signalsUser)
     {
         double weight = 1;
-
         int singleDiff = 0;
 
         ArrayList<Integer> diffs = new ArrayList<Integer>();
