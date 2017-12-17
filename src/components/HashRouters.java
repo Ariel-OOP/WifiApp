@@ -2,12 +2,15 @@ package components;
 
 import java.util.*;
 
+/**
+ * @author Moshe
+ */
+
 public class HashRouters<S,T>{
 
 	private Hashtable<S, ArrayList<T>> routers;
 	
 	public static void main(String[] args) {
-
 
 	}
 
@@ -36,9 +39,9 @@ public class HashRouters<S,T>{
 	}
 
 	/**
-	 *
-	 * @param key
-	 * @param values
+	 *The funcion gets a key and ArrayList of objects for this key, and inserts the objects to the key in the exist hash Table.
+	 * @param key - The key of the list. Type of key must be as a type of keys of the HashTable
+	 * @param values - The objects that will be inserted in the list that belongs to the key
 	 */
 	public void addListElement(S key, ArrayList<T> values)
 	{
@@ -91,6 +94,11 @@ public class HashRouters<S,T>{
 		return kBest;
 	}
 
+	/**
+	 * The function merge between the hash Table of this class to the hash Table that the function gets.
+	 * @param addHash - Hash Table the will merge. The type of keys and type of values of the hash Table must be similar
+	 * 			to the type of keys and type of values of the hash Table in this class.
+	 */
 	public void mergeToHash(HashRouters<S, T> addHash)
 	{
 		//HashRouters<S, ArrayList<T>> mergeHash = new HashRouters<>();

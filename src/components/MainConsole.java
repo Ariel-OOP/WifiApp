@@ -1,14 +1,12 @@
 package components;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-/**
- * Created by Nissan on 11/21/2017.
- */
 public class MainConsole {
 
     static List<WifiPointsTimePlace> processedFile = new ArrayList<>();
@@ -57,7 +55,7 @@ public class MainConsole {
 //        for(String key : keysAddHash )
 //        {
 //            WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
-//            MACs_after_algorith_1.add(weightedArithmeticMean.getWAMbyMac(key));
+//        MACs_after_algorith_1.add(weightedArithmeticMean.getWAMbyMac(key));
 //        }
 
         //Algorithm 2
@@ -77,6 +75,15 @@ public class MainConsole {
             listOfWIFIWeightsUsingAlgo2.add(ww);
         }
 
+        //Getting all lines of combination-without-location-CSV-File and insert the new locations and export to new file
+        try {
+            List<WifiPointsTimePlace> s =  CoboCSVReader.readCsvFile("E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\noGPSFolder\\_comb_no_gps_ts2_.csv", routersOfAllFiles);
+            OutputCSVWriter.changeLocationOfFile(listOfWIFIWeightsUsingAlgo2,s, "afterAlgo2.csv");
+        }
+        catch (IOException e)
+        {
+
+        }
 
 
         OutputCSVWriter outputCSVWriterBenMosheFiles = new OutputCSVWriter(selectedFiles);
