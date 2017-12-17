@@ -90,12 +90,14 @@ public class Algorithm2 {
         ArrayList<Double> weights = new ArrayList<Double>();
 
         for(int i = 0; i < signalsUser.size(); i++) {
+
             singleDiff = (signalsLine.get(i) == -120)? diff_no_sig : Math.abs(Math.abs(signalsLine.get(i)) - Math.abs(signalsUser.get(i)));
             diffs.add(singleDiff);
         }
 
         for(int i = 0; i < diffs.size(); i++) {
-            weights.add(norm/(Math.pow(diffs.get(i),sig_diff)*Math.pow(signalsUser.get(i),power)));
+            int difference = (diffs.get(i) > 3)? diffs.get(i) : 3;
+            weights.add(norm/(Math.pow(difference,sig_diff)*Math.pow(signalsUser.get(i),power)));
         }
 
         for(int i = 0; i < weights.size(); i++) {
