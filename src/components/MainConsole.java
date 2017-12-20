@@ -23,8 +23,6 @@ public class MainConsole {
             selectedFiles.add(oneFile);
         }
 
-        //selectedFiles.add(new File(folderPath));
-
         //Read the files and create combination CSV file
         OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles);
 
@@ -36,18 +34,8 @@ public class MainConsole {
 
         //Algorithm 1
         ArrayList<WIFIWeight> userInput = new ArrayList<WIFIWeight>();
-//
-//        WIFIWeight a = new WIFIWeight("3c:1e:04:03:7f:17",0,0,0,-30,0);
-//        WIFIWeight b = new WIFIWeight("74:da:38:50:77:f2",0,0,0,-49,0);
-//        WIFIWeight d = new WIFIWeight("c4:3d:c7:5a:79:1c",0,0,0,-90,0);
-//
-//        userInput.add(a);
-//        userInput.add(b);
-//        userInput.add(d);
 
         List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, userInput, 3);
-
-        //routersOfAllFiles.mergeToHash(outputCSVWriter.getAllRoutersOfTheFiles());
 
         Set<String> keysAddHash = routersOfAllFiles.getRoutersHashTable().keySet();
         List<WIFIWeight> MACs_after_algorith_1 = new ArrayList<>();
@@ -59,40 +47,40 @@ public class MainConsole {
         }
 
         OutputCSVWriter.ExportToCSV(MACs_after_algorith_1,"Algo1.csv");
+
+
         //Algorithm 2
 
-//
-//        ArrayList<WIFIWeight> listOfWIFIWeightsUsingAlgo2 = new ArrayList<>();//Hold locations of all lines of the combination without location CSV File
-//
-//        //Read the combination-without-location-CSV-File and inserts all line to the ArrayList<ArrayList<WIFIWeight>>.
-//        //the innter ArrayList<WIFIWeight> hold one line of combination-without-location-CSV-File. and the external ArrayList hold all of lines.
-//        ArrayList<ArrayList<WIFIWeight>> listOfCombinationCsvLines = CSVReader.readCombinationCsvFile("E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\noGPSFolder\\_comb_no_gps_ts2_.csv");
-//        for(ArrayList<WIFIWeight> line : listOfCombinationCsvLines) {
-//            //run algorithm 2 on each line, get the WIFIWeight of each line and insert to ArrayList.
-//            List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, line, 3);
-//            WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
-//            WIFIWeight ww = weightedArithmeticMean.getWamByList(kLineMostSimilar);
-//
-//            listOfWIFIWeightsUsingAlgo2.add(ww);
-//        }
-//
-//        //Getting all lines of combination-without-location-CSV-File and insert the new locations and export to new file
-//        try {
-//            List<WifiPointsTimePlace> s =  CoboCSVReader.readCsvFile("E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\noGPSFolder\\_comb_no_gps_ts2_.csv", routersOfAllFiles);
-//            OutputCSVWriter.changeLocationOfFile(listOfWIFIWeightsUsingAlgo2,s, "afterAlgo2.csv");
-//        }
-//        catch (IOException e)
-//        {
-//
-//        }
+
+        ArrayList<WIFIWeight> listOfWIFIWeightsUsingAlgo2 = new ArrayList<>();//Hold locations of all lines of the combination without location CSV File
+
+        //Read the combination-without-location-CSV-File and inserts all line to the ArrayList<ArrayList<WIFIWeight>>.
+        //the innter ArrayList<WIFIWeight> hold one line of combination-without-location-CSV-File. and the external ArrayList hold all of lines.
+        ArrayList<ArrayList<WIFIWeight>> listOfCombinationCsvLines = CSVReader.readCombinationCsvFile("E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\noGPSFolder\\_comb_no_gps_ts2_.csv");
+        for(ArrayList<WIFIWeight> line : listOfCombinationCsvLines) {
+            //run algorithm 2 on each line, get the WIFIWeight of each line and insert to ArrayList.
+            /*List<WIFIWeight> */kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, line, 3);
+            WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
+            WIFIWeight ww = weightedArithmeticMean.getWamByList(kLineMostSimilar);
+
+            listOfWIFIWeightsUsingAlgo2.add(ww);
+        }
+
+        //Getting all lines of combination-without-location-CSV-File and insert the new locations and export to new file
+        try {
+            List<WifiPointsTimePlace> s =  CoboCSVReader.readCsvFile("E:\\OOP_GitHub\\Assignment OOP\\WifiApp\\noGPSFolder\\_comb_no_gps_ts2_.csv", routersOfAllFiles);
+            OutputCSVWriter.changeLocationOfFile(listOfWIFIWeightsUsingAlgo2,s, "afterAlgo2.csv");
+        }
+        catch (IOException e)
+        {
+
+        }
 
 
         OutputCSVWriter outputCSVWriterBenMosheFiles = new OutputCSVWriter(selectedFiles);
         processedFile.addAll(outputCSVWriterBenMosheFiles.sortAndMergeFiles());
 
-
-       // WeightedArithmeticMean weightedArithmeticMean = new WeightedArithmeticMean(routersOfAllFiles);
-       // WIFIWeight ww =weightedArithmeticMean.getWAM("00:22:b0:75:7d:eb");
+        //KML
 
         Scanner stdin = new Scanner(System.in);
         char c = printMenu();
