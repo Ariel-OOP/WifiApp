@@ -40,15 +40,21 @@ public class Controller implements Initializable{
     public File comboFile;
     public File selectedFile;
     public List<File> selectedFiles;
+    public List<File> selectedComboFles;
     List<WifiPointsTimePlace> processedFile;
     public HashRouters<String,WIFISample> routersOfAllFiles;
+
+    private boolean addFileOrFolder = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         selectedFile=null;
         selectedFolder=null;
         selectedFiles = new ArrayList<>();
+        selectedComboFles = new ArrayList<>();
 
+        routersOfAllFiles = new HashRouters<>();
+        processedFile = new ArrayList<>();
     }
 
     public void folderChooser(){
@@ -59,9 +65,28 @@ public class Controller implements Initializable{
         dirChooser.setInitialDirectory(new File("FileResources"));
         selectedFolder = dirChooser.showDialog(null);
         if (selectedFolder != null){
+            addFileOrFolder = true;
             System.out.println(selectedFolder.getAbsolutePath());
             bottomLabel.setStyle("-fx-text-fill: black;");
             bottomLabel.setText("choose folder: " +selectedFolder.getAbsolutePath());
+
+            File dir = new File(selectedFolder.toString());
+            for (File file : dir.listFiles()) {
+                //Incorrect file type-reject
+                if (!(file.getName().toLowerCase().endsWith(".csv"))) {
+                    System.out.println(file.getName() + " is an incorrect file type in the folder");
+                    System.out.println("the file was not added to the csv file error 404");
+                    continue;
+                }else{ //add absolute path
+                    selectedFiles.add(file.getAbsoluteFile());
+                }
+            }
+
+            // Print the names of files
+            for(File file : selectedFiles){
+                System.out.println(file.getAbsolutePath());
+            }
+
         }else{
             System.out.println("didn't choose folder");
             bottomLabel.setStyle("-fx-text-fill: red;");
@@ -74,7 +99,7 @@ public class Controller implements Initializable{
         bottomLabel.setStyle("-fx-text-fill: black;");
         bottomLabel.setText("choose file");
         FileChooser fileChooser = new FileChooser ();
-        fileChooser.setInitialDirectory(new File("C:\\"));
+        fileChooser.setInitialDirectory(new File("noGPSFolder"));
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("CSV files","*.csv") );
         selectedFile = fileChooser.showOpenDialog(null);
 
@@ -83,11 +108,11 @@ public class Controller implements Initializable{
             bottomLabel.setStyle("-fx-text-fill: red;");
             bottomLabel.setText("didn't choose file");
         }else if (selectedFile != null && selectedFile.getName().toLowerCase().endsWith(".csv") ){
+            addFileOrFolder = true;
             System.out.println(selectedFile.getAbsolutePath());
             bottomLabel.setStyle("-fx-text-fill: black;");
             bottomLabel.setText("choose file: " +selectedFile.getAbsolutePath());
-            selectedFiles.add(selectedFile);
-
+            selectedComboFles.add(selectedFile.getAbsoluteFile());
         }else if(!selectedFile.getName().toLowerCase().endsWith(".csv")) {
             selectedFile = null;
             System.out.println("incorrect file type");
@@ -98,6 +123,7 @@ public class Controller implements Initializable{
 
     //TODO fill in
     public void clearData(){
+        addFileOrFolder = false;
         selectedFile=null;
         selectedFolder=null;
         selectedFiles.clear();
@@ -105,45 +131,69 @@ public class Controller implements Initializable{
         bottomLabel.setText("cleared data");
         System.out.println("cleared data");
 
+        routersOfAllFiles = new HashRouters<>();
+        processedFile = new ArrayList<>();
+
+        dataSize.setText(processedFile.size() + "");
     }
 
     public void save2CSV(){
         bottomLabel.setText("please wait...");
 
-//        processedFile.clear(); //if clicked twice
-        if(selectedFiles==null && selectedFolder==null){
+        OutputCSVWriter outputCSVWriter = null;
+
+        if(selectedComboFles==null && selectedFolder==null ){
             bottomLabel.setStyle("-fx-text-fill: red;");
             bottomLabel.setText("sorry cannot export without files");
             return;
         }
 
-        File dir = new File(selectedFolder.toString());
-        for (File file : dir.listFiles()) {
-            //Incorrect file type-reject
-            if (!(file.getName().toLowerCase().endsWith(".csv"))) {
-                System.out.println(file.getName() + " is an incorrect file type in the folder");
-                System.out.println("the file was not added to the csv file error 404");
-                continue;
-            }else{ //add absolute path
-                selectedFiles.add(file.getAbsoluteFile());
-            }
-        }
-        for(File file : selectedFiles){
-            System.out.println(file.getAbsolutePath());
+        if(!addFileOrFolder)
+        {
+            bottomLabel.setStyle("-fx-text-fill: red;");
+            bottomLabel.setText("sorry cannot export new file without new files or clear");
+            return;
         }
 
+        if(selectedFolder != null)
+        {
+            outputCSVWriter = new OutputCSVWriter(selectedFiles);
+            processedFile.addAll(outputCSVWriter.sortAndMergeFiles());
+            routersOfAllFiles.mergeToHash(outputCSVWriter.getAllRoutersOfTheFiles());
+            selectedFiles.clear();
+        }
 
-        OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles);
-
-        processedFile =  outputCSVWriter.sortAndMergeFiles();
+//        OutputCSVWriter outputCSVWriter = new OutputCSVWriter(selectedFiles);
+//
+//        processedFile =  outputCSVWriter.sortAndMergeFiles();
 //        processedFile.addAll(outputCSVWriter.sortAndMergeFiles());
+
+        if(selectedComboFles != null)
+        {
+            for(File file : selectedComboFles)
+            {
+                try {
+                    processedFile.addAll(CoboCSVReader.readCsvFile(file.getAbsolutePath(),routersOfAllFiles));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            selectedComboFles.clear();
+        }
+
+
+        dataSize.setText(processedFile.size() + "");
+
         outputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
 
-        routersOfAllFiles = outputCSVWriter.getAllRoutersOfTheFiles();
+//        routersOfAllFiles = outputCSVWriter.getAllRoutersOfTheFiles();
+
 //        routersOfAllFiles.mergeToHash(outputCSVWriter.getAllRoutersOfTheFiles());
 
         bottomLabel.setStyle("-fx-text-fill: black;");
         bottomLabel.setText("successfully exported CSV file");
+
+        addFileOrFolder = false;
     }
 
     public void submitMac(){
@@ -169,8 +219,6 @@ public class Controller implements Initializable{
             System.out.println("calculated coordinates for given mac are:");
             bottomLabel.setText("calculated coordinates for given mac");
         }
-
-
 
         if(ww!=null) {
             System.out.println(ww.getWIFI_Lat());
