@@ -8,6 +8,7 @@ import java.util.*;
 
 public class HashRouters<S,T>{
 
+	private int countOfRouters = 0;
 	private Hashtable<S, ArrayList<T>> routers;
 	
 	public static void main(String[] args) {
@@ -32,6 +33,7 @@ public class HashRouters<S,T>{
 		}
 		else		
 		{
+			countOfRouters++;
 			ArrayList<T> n = new ArrayList<T>();
 			n.add(value);
 			routers.put(key, n);
@@ -110,4 +112,9 @@ public class HashRouters<S,T>{
 			addListElement(key,addHash.routers.get(key));
 		}
 	}
+
+	/**
+	 * @return the number of different MAC addresses in the hashTable
+	 */
+	public int getCountOfRouters(){ return countOfRouters; }
 }
