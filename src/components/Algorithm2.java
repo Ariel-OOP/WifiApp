@@ -95,7 +95,7 @@ public class Algorithm2 {
         }
 
         for(int i = 0; i < diffs.size(); i++) {
-            int difference = (diffs.get(i) > 3)? diffs.get(i) : 3;
+            int difference = (diffs.get(i) > 3)? diffs.get(i) : 3;//Don't divide by zero.
             weights.add(norm/(Math.pow(difference,sig_diff)*Math.pow(signalsUser.get(i),power)));
         }
 

@@ -32,7 +32,10 @@ public class MainConsole {
 
         OutputCSVWriter.ExportToCSV(processedFile,"testOutputCSV.csv");
 
+
         //Algorithm 1
+
+
         ArrayList<WIFIWeight> userInput = new ArrayList<WIFIWeight>();
 
         List<WIFIWeight> kLineMostSimilar = Algorithm2.getKMostSimilar(processedFile, userInput, 3);
@@ -73,7 +76,6 @@ public class MainConsole {
         }
         catch (IOException e)
         {
-
         }
 
 
