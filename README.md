@@ -30,4 +30,4 @@ After the filteration is complete the program will export a KML file (it is simi
 
 # The name web-flow is GeekCSA
 
-# ![Alt text](/home/moshe/Desktop/OOP_Diagram/Diagram_of_classes_after_teacher.png?raw=true "Title")
+# ![Alt text](https://github.com/Ariel-OOP/WifiApp/blob/master/Diagram_of_classes_after_teacher.png?raw=true "Title")
