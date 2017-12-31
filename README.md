@@ -28,6 +28,7 @@ After the filteration is complete the program will export a KML file (it is simi
 3. You can add your own CSV file from the wigle app to the FileResources folder:open_file_folder::.
 4. Enjoy!!!
 
-# The name web-flow is GeekCSA
+# This is the diagram of our program
+# ![diagram](https://github.com/Ariel-OOP/WifiApp/blob/master/Diagram_of_classes_after_teacher.png?raw=true "Title")
 
-# ![Alt text](https://github.com/Ariel-OOP/WifiApp/blob/master/Diagram_of_classes_after_teacher.png?raw=true "Title")
+# The name web-flow is GeekCSA
