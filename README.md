@@ -1,4 +1,6 @@
-# WifiApp
+# This repository has moved to https://github.com/Ariel-OOP/WebWifiApp for Exercises 3 and onward.
+
+# WifiApp - Exercise 2
 A wifi app that can calculate many different calculations
 
 # General Description <br />
